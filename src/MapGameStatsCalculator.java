@@ -22,7 +22,7 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
   private Map<String, Integer> gameCounts;
 
   // For some waves you will need to add more private instance variables here!
-
+  private Map<String, Integer> highScores;
 
 
   public MapGameStatsCalculator(Scanner scoreInput)  
@@ -40,6 +40,12 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
             int oldCount = gameCounts.get(name);
             gameCounts.put(name, oldCount + 1);
           }
+        if (!highScores.containsKey(name)) {
+            highScores.put(name, score);
+        } else if (score > highScores.get(name)) {
+            highScores.put(name, score);
+        }
+      }
 
       // TODO: add logic here to use the name and score to fill your map(s)!
     }
@@ -68,11 +74,8 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
    */
   @Override
   public int highScore(String person) {
-    // TODO: remove this exception once you have implemented your method!
-    throw new UnsupportedOperationException("Unimplemented method 'highScore'");
-
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkPerson(person);
+    checkPerson(person);
+    return highScores.get(person);
   }
 
   /**
