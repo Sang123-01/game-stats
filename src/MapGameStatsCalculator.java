@@ -36,10 +36,11 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
         {
           gameCounts.put(name,1);
         }else
-          { 
+        { 
             int oldCount = gameCounts.get(name);
             gameCounts.put(name, oldCount + 1);
-          }
+        }
+          
         if (!highScores.containsKey(name)) {
             highScores.put(name, score);
         } else if (score > highScores.get(name)) {
@@ -49,7 +50,7 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
 
       // TODO: add logic here to use the name and score to fill your map(s)!
     }
-  }
+  
 
   /**
    * Returns the number of games a person has played.
@@ -93,8 +94,26 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
     throw new UnsupportedOperationException("Unimplemented method 'highestScorer'");
 
     // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkScoreData();
+    checkScoreData();
+    String Winner = null;
+    for(String person : highScores.keySet())
+      {
+        if(Winner == null)
+          {
+            Winner = person;
+          }else
+          {
+            int score = highScores.get(person);
+            int bestScore = highScores.get(Winner);
+
+            if (score > bestScore ||
+                (score == bestScore && person.compareTo(Winner) < 0)) {
+                Winner = person;
+          }
+      }
   }
+    return Winner;
+}
 
   /**
    * Returns the average score a person has gotten.
